@@ -2,8 +2,8 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 09-12-2022 a las 18:45:20
+-- Servidor: localhost:3307
+-- Tiempo de generación: 12-12-2022 a las 09:45:07
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `escandallo` (
   `id` bigint(20) NOT NULL,
   `nombre` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
-  `id_tipoPlato` bigint(20) NOT NULL
+  `id_tipoplato` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -54,6 +54,7 @@ CREATE TABLE `espacio` (
 --
 
 CREATE TABLE `lineaescandallo` (
+  `id` bigint(20) NOT NULL,
   `id_escandallo` bigint(20) NOT NULL,
   `id_referencia` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -65,9 +66,10 @@ CREATE TABLE `lineaescandallo` (
 --
 
 CREATE TABLE `lineaservicio` (
+  `pax` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `id_servicio` bigint(20) NOT NULL,
-  `id_escandallo` bigint(20) NOT NULL,
-  `pax` int(11) NOT NULL
+  `id_escandallo` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -103,7 +105,8 @@ CREATE TABLE `servicio` (
   `id` bigint(20) NOT NULL,
   `id_salon` bigint(20) NOT NULL,
   `fechaHora` datetime NOT NULL,
-  `comensales` int(11) NOT NULL
+  `comensales` int(11) NOT NULL,
+  `id_usuario` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -144,7 +147,7 @@ INSERT INTO `tipousuario` (`id`, `tipo`) VALUES
 
 CREATE TABLE `usuario` (
   `id` bigint(20) NOT NULL,
-  `id_tipoUsuario` bigint(20) NOT NULL,
+  `id_tipousuario` bigint(20) NOT NULL,
   `nombre` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `apellidos` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `dni` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
@@ -157,7 +160,7 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `id_tipoUsuario`, `nombre`, `apellidos`, `dni`, `email`, `login`, `password`) VALUES
+INSERT INTO `usuario` (`id`, `id_tipousuario`, `nombre`, `apellidos`, `dni`, `email`, `login`, `password`) VALUES
 (1, 1, 'admin', 'admin admin', '20834113T', 'admin@admin.es', 'admin', '123456789');
 
 --
@@ -177,10 +180,16 @@ ALTER TABLE `espacio`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `lineaescandallo`
+--
+ALTER TABLE `lineaescandallo`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `lineaservicio`
 --
 ALTER TABLE `lineaservicio`
-  ADD PRIMARY KEY (`id_servicio`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `referencia`
@@ -232,6 +241,18 @@ ALTER TABLE `escandallo`
 -- AUTO_INCREMENT de la tabla `espacio`
 --
 ALTER TABLE `espacio`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `lineaescandallo`
+--
+ALTER TABLE `lineaescandallo`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `lineaservicio`
+--
+ALTER TABLE `lineaservicio`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
