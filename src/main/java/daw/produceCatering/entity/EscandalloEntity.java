@@ -31,8 +31,8 @@ public class EscandalloEntity {
     private final List<LineaEscandalloEntity> lineasEscandallo;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_tipoPlato")
-    private TipoPlatoEntity tipoPlato;
+    @JoinColumn(name = "id_tipoplato")
+    private TipoPlatoEntity tipoplato;
 
     public EscandalloEntity() {
         this.lineasServicio = new ArrayList<>();
@@ -62,12 +62,12 @@ public class EscandalloEntity {
         this.nombre = nombre;
     }
 
-    public TipoPlatoEntity getTipoPlato() {
-        return tipoPlato;
+    public TipoPlatoEntity gettipoplato() {
+        return tipoplato;
     }
 
-    public void setTipoPlato(TipoPlatoEntity tipoPlato) {
-        this.tipoPlato = tipoPlato;
+    public void settipoplato(TipoPlatoEntity tipoplato) {
+        this.tipoplato = tipoplato;
     }
 
     public int getLineasServicio() {

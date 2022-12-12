@@ -53,13 +53,13 @@ public class TipoPlatoEntity {
         this.nombre = nombre;
     }
 
-    public int getNumEscandallos() {
+    public int getEscandallos() {
         return escandallos.size();
     }
 
     @PreRemove
     public void nullify() {
-       this.escandallos.forEach(escandallo -> escandallo.setTipoPlato(null));
+       this.escandallos.forEach(c -> c.settipoplato(null));
     }
     
 }
