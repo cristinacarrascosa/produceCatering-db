@@ -1,5 +1,7 @@
 package daw.produceCatering.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +18,8 @@ public class UsuarioService {
 
     private final String PC_DEFAULT_PASSWORD = "1234";
 
-    public UsuarioEntity get(Long id) {
 
+    public UsuarioEntity get(Long id) {
         //faltaria el onlyAdminiOrUserData si hace falta agregarlo luego
         try {
             return oUsuarioRepository.findById(id).get();
@@ -51,5 +53,22 @@ public class UsuarioService {
             throw new ResourceNotFoundException("id "+ id + " no existe");
         }
     }
+
+    // @Transactional
+    // public Long update (UsuarioEntity oUsuarioEntity){
+
+    // }
+
+    public void validate(Long id) {
+        if( !oUsuarioRepository.existsById(id)){
+            throw new ResourceNotFoundException("id "+ id + " no existe");
+        }
+    }
+
+    public void validate(UsuarioEntity oUsuarioEntity) {
+        
+    }
+
+
     
 }
