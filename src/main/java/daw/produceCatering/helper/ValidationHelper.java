@@ -30,4 +30,13 @@ public class ValidationHelper {
             throw new ValidationException("error de validación: " + error);
         }
     }
-}
+
+    public static void validateStringLength(String strNombre, int minlength, int maxlength, String error) {
+        if (strNombre.length() >= minlength && strNombre.length() <= maxlength) {
+            
+        }else {
+            throw new ValidationException("error de validación: " + error);
+        }
+        }
+    }
+
