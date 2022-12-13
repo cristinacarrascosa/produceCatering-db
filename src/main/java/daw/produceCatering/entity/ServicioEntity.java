@@ -1,5 +1,6 @@
 package daw.produceCatering.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,8 +27,9 @@ public class ServicioEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //@Column(name = "fechaHora")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-    private LocalDateTime fechaHora;
+    private LocalDateTime fechahora;
 
     private int comensales;
 
@@ -58,13 +60,13 @@ public class ServicioEntity {
     public void setId(Long id) {
         this.id = id;
     }
-
+ 
     public LocalDateTime getFechaHora() {
-        return fechaHora;
+        return fechahora;
     }
 
     public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora;
+        this.fechahora = fechaHora;
     }
 
     public int getComensales() {
