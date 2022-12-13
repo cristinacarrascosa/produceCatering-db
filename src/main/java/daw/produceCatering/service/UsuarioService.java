@@ -39,8 +39,14 @@ public class UsuarioService {
 
     public Long delete(Long id) {
         // falta añadir onlyAdmin si hace falta
-        if (oUsuarioRepository.existsById(id)) {
-            throw new ResourceNotModifiedException("No se puede borrar el registro "+ id);
+        if(oUsuarioRepository.existsById(id)){
+            oUsuarioRepository.deleteById(id);
+            if( oUsuarioRepository.existsById(id)){
+                throw new ResourceNotModifiedException("id "+ id + " no se ha podido borrar");
+            } else {
+                return id;
+            }
+
         } else {
             throw new ResourceNotFoundException("id "+ id + " no existe");
         }
