@@ -64,4 +64,10 @@ public class ValidationHelper {
             throw new ValidationException("error de validación: " + error);
         }
     }
+
+    public static void validateRPP(int iRPP) {
+        if (iRPP < 1 || iRPP > 1000) {
+            throw new ValidationException("El valor de Registros por página no es válido(debe estar entre 1 y 1000)");
+        }
+    }
 }
