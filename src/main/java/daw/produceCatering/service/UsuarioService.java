@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import daw.produceCatering.entity.UsuarioEntity;
 import daw.produceCatering.exception.ResourceNotFoundException;
 import daw.produceCatering.exception.ResourceNotModifiedException;
+import daw.produceCatering.exception.ValidationException;
+import daw.produceCatering.helper.ValidationHelper;
+import daw.produceCatering.repository.TipousuarioRepository;
 import daw.produceCatering.repository.UsuarioRepository;
 
 @Service
@@ -15,6 +18,12 @@ public class UsuarioService {
 
     @Autowired
     UsuarioRepository oUsuarioRepository;
+
+    @Autowired
+    TipoUsuarioService oTipoUsuarioService;
+
+    @Autowired
+    TipousuarioRepository oTipousuarioRepository;
 
     private final String PC_DEFAULT_PASSWORD = "1234";
 
@@ -34,6 +43,7 @@ public class UsuarioService {
     }
 
     public Long create(UsuarioEntity oNewUsuarioEntity) {
+        validate(oNewUsuarioEntity);
         oNewUsuarioEntity.setId(0L);
         oNewUsuarioEntity.setPassword(PC_DEFAULT_PASSWORD);
         return oUsuarioRepository.save(oNewUsuarioEntity).getId();
@@ -54,10 +64,14 @@ public class UsuarioService {
         }
     }
 
-    // @Transactional
-    // public Long update (UsuarioEntity oUsuarioEntity){
+   
+    public Long update (UsuarioEntity oUsuarioEntity){
+        validate(oUsuarioEntity.getId());
+        UsuarioEntity oOldUsuarioEntity = oUsuarioRepository.getById(oUsuarioEntity.getId());
+        oUsuarioEntity.setPassword(oOldUsuarioEntity.getPassword());
+        return oUsuarioRepository.save(oUsuarioEntity).getId();
+    }
 
-    // }
 
     public void validate(Long id) {
         if( !oUsuarioRepository.existsById(id)){
@@ -65,9 +79,22 @@ public class UsuarioService {
         }
     }
 
+
     public void validate(UsuarioEntity oUsuarioEntity) {
         
+        ValidationHelper.validateStringLength(oUsuarioEntity.getNombre(), 2, 50, "campo nombre de Usuario (el campo debe tener longitud de 2 a 50 caracteres");
+        ValidationHelper.validateStringLength(oUsuarioEntity.getApellidos(), 2, 100, "campo apellidos de Usuario (el campo debe tener longitud de 2 a 100 caracteres");
+        ValidationHelper.validateDNI(oUsuarioEntity.getDni(), "campo DNI de Usuario");
+        ValidationHelper.validateEmail(oUsuarioEntity.getEmail(), "campo email de Usuario");
+        ValidationHelper.validateLogin(oUsuarioEntity.getLogin(), "campo login de Usuario");
+        if ( oUsuarioRepository.existsByLogin(oUsuarioEntity.getLogin()) ){
+            throw new ValidationException("el campo login está repetido");
+        }
+        oTipoUsuarioService.validate(oUsuarioEntity.getTipousuario().getId());
+        
     }
+
+    
 
 
     
