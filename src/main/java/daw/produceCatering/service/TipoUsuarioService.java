@@ -2,6 +2,10 @@ package daw.produceCatering.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import daw.produceCatering.entity.TipousuarioEntity;
 import daw.produceCatering.exception.ResourceNotFoundException;
@@ -21,6 +25,12 @@ public class TipoUsuarioService {
         return oTipousuarioRepository.getById(id);
     }
 
+    public Page<TipousuarioEntity> getPage(int page, int size) {
+        Pageable oPageable = PageRequest.of(page, size);
+
+        return oTipousuarioRepository.findAll(oPageable);
+    }
+
     public Long count() {
         return oTipousuarioRepository.count();
     }
@@ -37,5 +47,7 @@ public class TipoUsuarioService {
             throw new ResourceNotFoundException("id "+ id + "no existe");
         }
     }
+
+    
     
 }
