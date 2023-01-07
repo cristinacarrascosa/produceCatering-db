@@ -62,5 +62,17 @@ public class UsuarioController {
     public ResponseEntity<Long> update(@RequestBody UsuarioEntity oUsuarioEntity) {
         return new ResponseEntity<Long>(oUsuarioService.update(oUsuarioEntity), HttpStatus.OK);
     }
+
+    @PostMapping("/generate")
+    public ResponseEntity<UsuarioEntity> generate() {
+        return new ResponseEntity<UsuarioEntity>(oUsuarioService.generate(), HttpStatus.OK);
+    }
+
+    @PostMapping("/generate/{amount}")
+    public ResponseEntity<Long> generateSome(@PathVariable(value = "amount") Integer amount) {
+        return new ResponseEntity<>(oUsuarioService.generateSome(amount), HttpStatus.OK);
+    }
+
+
     
 }

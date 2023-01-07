@@ -32,6 +32,7 @@ public class UsuarioEntity {
     private String dni;
     private String email;
     private String login;
+   
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
