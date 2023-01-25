@@ -3,9 +3,11 @@ package daw.produceCatering.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import daw.produceCatering.entity.EspacioEntity;
 import daw.produceCatering.exception.ResourceNotFoundException;
+import daw.produceCatering.exception.ResourceNotModifiedException;
 import daw.produceCatering.repository.EspacioRepository;
 
 import daw.produceCatering.helper.ValidationHelper;
@@ -49,6 +51,20 @@ public class EspacioService {
     public Long count() {
         // falta añadir onlyAdmin si hace falta
         return oEspacioRepository.count();
+    }
+
+    public Long delete(@PathVariable(value = "id") Long id) {
+       // oAuthService.OnlyAdmins();
+        if (oEspacioRepository.existsById(id)) {
+            oEspacioRepository.deleteById(id);
+            if (oEspacioRepository.existsById(id)) {
+                throw new ResourceNotModifiedException("No se puede borrar el registro " + id);
+            } else {
+                return id;
+            }
+        } else {
+            return 0L;
+        }
     }
     
 }

@@ -96,5 +96,8 @@ public class AuthService {
         return false;
     }
 
+    public void OnlyAdmins() {
+    }
+
     //* copiado hasta aquí, faltarían OnlyUsers, OnlyAdminsOrUsers , etc.. Mirar a lo largo del proyecto si hacen falta.*/
 }
