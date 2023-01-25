@@ -8,9 +8,11 @@ import daw.produceCatering.entity.SalonEntity;
 
 public interface SalonRepository extends JpaRepository<SalonEntity, Long>{
     
-    Page<SalonEntity> findByNombreIgnoreCaseContaining(String strFilter, Pageable oPageable);
+    Page<SalonEntity> findByNombreIgnoreCaseContaining(String nombre, Pageable oPageable);
 
     Page<SalonEntity> findById(Long id, Pageable oPageable);
+
+    Page<SalonEntity> findByEspacioIdAndNombre(Long id, String nombre, Pageable oPageable);
 
     
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import daw.produceCatering.entity.SalonEntity;
 import daw.produceCatering.exception.ResourceNotFoundException;
 import daw.produceCatering.exception.ResourceNotModifiedException;
+import daw.produceCatering.helper.ValidationHelper;
 import daw.produceCatering.repository.EspacioRepository;
 import daw.produceCatering.repository.SalonRepository;
 
@@ -52,6 +53,27 @@ public class SalonService {
         } else {
             throw new ResourceNotFoundException("id " + id + " no existe");
         }
+    }
+
+    public void validate(Long id) {
+        if (!oSalonRepository.existsById(id)) {
+            throw new ResourceNotFoundException("id " + id + " not exist");
+        }
+    }
+
+    public void validate(SalonEntity oSalonEntity) {
+        ValidationHelper.validateStringLength(oSalonEntity.getNombre(), 2, 255, "Nombre en SalonService (el campo debe tener longitud de 2 a 255 caracteres)");
+        oEspacioService.validate(oSalonEntity.getEspacio().getId());
+    }
+
+
+    public Long create(SalonEntity oSalonEntity) {
+        //oAuthService.OnlyAdmins();
+        validate(oSalonEntity);
+        oEspacioService.validate(oSalonEntity.getEspacio().getId());
+        oSalonEntity.setEspacio(oEspacioService.get(oSalonEntity.getEspacio().getId()));
+        oSalonEntity.setId(null);
+        return ((SalonEntity) oSalonRepository.save(oSalonEntity)).getId();
     }
     
    
