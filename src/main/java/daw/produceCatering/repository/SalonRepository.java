@@ -10,9 +10,9 @@ public interface SalonRepository extends JpaRepository<SalonEntity, Long>{
     
     Page<SalonEntity> findByNombreIgnoreCaseContaining(String nombre, Pageable oPageable);
 
-    Page<SalonEntity> findById(Long id, Pageable oPageable);
+    Page<SalonEntity> findByEspacioId(Long id_espacio, Pageable oPageable);
 
-    Page<SalonEntity> findByEspacioIdAndNombre(Long id, String nombre, Pageable oPageable);
+    Page<SalonEntity> findByEspacioIdAndNombre(Long id_espacio, String nombre, Pageable oPageable);
 
     
 }

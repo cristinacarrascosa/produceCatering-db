@@ -3,7 +3,8 @@ package daw.produceCatering.service;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import daw.produceCatering.entity.SalonEntity;
@@ -40,6 +41,25 @@ public class SalonService {
     public Long count() {
         // falta añadir onlyAdmin si hace falta
         return oSalonRepository.count();
+    }
+
+    public Page<SalonEntity> getPage(Pageable oPageable, String strFilter, Long lEspacio) {
+        ValidationHelper.validateRPP(oPageable.getPageSize());
+        Page<SalonEntity> oPage = null;
+        if (lEspacio == null) {
+            if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
+                oPage = oSalonRepository.findAll(oPageable);
+            } else {
+                oPage = oSalonRepository.findByNombreIgnoreCaseContaining(strFilter, oPageable);
+            }
+        } else {
+            if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
+                oPage = oSalonRepository.findByEspacioId(lEspacio, oPageable);
+            } else {
+                oPage = oSalonRepository.findByEspacioIdAndNombre(lEspacio, strFilter, oPageable);
+            }
+        }
+        return oPage;
     }
 
     public Long delete(Long id) {
