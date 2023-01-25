@@ -1,5 +1,7 @@
 package daw.produceCatering.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -67,6 +69,7 @@ public class SalonService {
     }
 
 
+    @Transactional
     public Long create(SalonEntity oSalonEntity) {
         //oAuthService.OnlyAdmins();
         validate(oSalonEntity);
@@ -74,6 +77,16 @@ public class SalonService {
         oSalonEntity.setEspacio(oEspacioService.get(oSalonEntity.getEspacio().getId()));
         oSalonEntity.setId(null);
         return ((SalonEntity) oSalonRepository.save(oSalonEntity)).getId();
+    }
+
+    @Transactional
+    public Long update(SalonEntity oSalonEntity) {
+        //oAuthService.OnlyAdmins();
+        validate(oSalonEntity.getId());
+        validate(oSalonEntity);
+        oEspacioService.validate(oSalonEntity.getEspacio().getId());
+        oSalonEntity.setEspacio(oEspacioService.get(oSalonEntity.getEspacio().getId()));
+        return oSalonRepository.save(oSalonEntity).getId();
     }
     
    
