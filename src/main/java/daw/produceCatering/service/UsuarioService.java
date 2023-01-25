@@ -35,41 +35,43 @@ public class UsuarioService {
 
     private final String DNI_LETTERS = "TRWAGMYFPDXBNJZSQVHLCKE";
     private final String PC_DEFAULT_PASSWORD = "1234";
-    private final String[] NOMBRES = {"Jose", "Mark", "Elen", "Toni", "Hector", "Jose", "Laura", "Vika", "Sergio",
-        "Javi", "Marcos", "Pere", "Daniel", "Jose", "Javi", "Sergio", "Aaron", "Rafa", "Lionel", "Borja"};
+    private final String[] NOMBRES = { "Jose", "Mark", "Elen", "Toni", "Hector", "Jose", "Laura", "Vika", "Sergio",
+            "Javi", "Marcos", "Pere", "Daniel", "Jose", "Javi", "Sergio", "Aaron", "Rafa", "Lionel", "Borja" };
 
-    private final String[] APELLIDOS = {"Penya", "Tatay", "Coronado", "Cabanes", "Mikayelyan", "Gil", "Martinez",
-        "Bargues", "Raga", "Santos", "Sierra", "Arias", "Santos", "Kuvshinnikova", "Cosin", "Frejo", "Marti",
-        "Valcarcel", "Sesa", "Lence", "Villanueva", "Peyro", "Navarro", "Navarro", "Primo", "Gil", "Mocholi",
-        "Ortega", "Dung", "Vi", "Sanchis", "Merida", "Aznar", "Aparici", "Tarazón", "Alcocer", "Salom", "Santamaría"};
-
+    private final String[] APELLIDOS = { "Penya", "Tatay", "Coronado", "Cabanes", "Mikayelyan", "Gil", "Martinez",
+            "Bargues", "Raga", "Santos", "Sierra", "Arias", "Santos", "Kuvshinnikova", "Cosin", "Frejo", "Marti",
+            "Valcarcel", "Sesa", "Lence", "Villanueva", "Peyro", "Navarro", "Navarro", "Primo", "Gil", "Mocholi",
+            "Ortega", "Dung", "Vi", "Sanchis", "Merida", "Aznar", "Aparici", "Tarazón", "Alcocer", "Salom",
+            "Santamaría" };
 
     public UsuarioEntity get(Long id) {
-        //faltaria el onlyAdminiOrUserData si hace falta agregarlo luego
+        // faltaria el onlyAdminiOrUserData si hace falta agregarlo luego
         try {
             return oUsuarioRepository.findById(id).get();
         } catch (Exception ex) {
-            throw new ResourceNotFoundException("id "+ id + " no existe");
+            throw new ResourceNotFoundException("id " + id + " no existe");
         }
     }
 
     public Page<UsuarioEntity> getPage(Pageable oPageable, String strFilter, Long lTipoUsuario) {
-      
+
         ValidationHelper.validateRPP(oPageable.getPageSize());
         Page<UsuarioEntity> oPage = null;
         if (lTipoUsuario == null) {
             if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
                 oPage = oUsuarioRepository.findAll(oPageable);
             } else {
-                oPage = oUsuarioRepository.findByDniIgnoreCaseContainingOrNombreIgnoreCaseContainingOrApellidosIgnoreCaseContaining(
-                        strFilter, strFilter, strFilter, oPageable);
+                oPage = oUsuarioRepository
+                        .findByDniIgnoreCaseContainingOrNombreIgnoreCaseContainingOrApellidosIgnoreCaseContaining(
+                                strFilter, strFilter, strFilter, oPageable);
             }
         } else {
             if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
                 oPage = oUsuarioRepository.findByTipousuarioId(lTipoUsuario, oPageable);
             } else {
-                oPage = oUsuarioRepository.findByTipousuarioIdAndDniIgnoreCaseContainingOrNombreIgnoreCaseContainingOrApellidosIgnoreCaseContaining(
-                        lTipoUsuario, strFilter, strFilter, strFilter, oPageable);
+                oPage = oUsuarioRepository
+                        .findByTipousuarioIdAndDniIgnoreCaseContainingOrNombreIgnoreCaseContainingOrApellidosIgnoreCaseContaining(
+                                lTipoUsuario, strFilter, strFilter, strFilter, oPageable);
             }
         }
         return oPage;
@@ -89,21 +91,20 @@ public class UsuarioService {
 
     public Long delete(Long id) {
         // falta añadir onlyAdmin si hace falta
-        if(oUsuarioRepository.existsById(id)){
+        if (oUsuarioRepository.existsById(id)) {
             oUsuarioRepository.deleteById(id);
-            if( oUsuarioRepository.existsById(id)){
-                throw new ResourceNotModifiedException("id "+ id + " no se ha podido borrar");
+            if (oUsuarioRepository.existsById(id)) {
+                throw new ResourceNotModifiedException("id " + id + " no se ha podido borrar");
             } else {
                 return id;
             }
 
         } else {
-            throw new ResourceNotFoundException("id "+ id + " no existe");
+            throw new ResourceNotFoundException("id " + id + " no existe");
         }
     }
 
-   
-    public Long update (UsuarioEntity oUsuarioEntity){
+    public Long update(UsuarioEntity oUsuarioEntity) {
         validate(oUsuarioEntity.getId());
         UsuarioEntity oOldUsuarioEntity = oUsuarioRepository.getById(oUsuarioEntity.getId());
         oUsuarioEntity.setPassword(oOldUsuarioEntity.getPassword());
@@ -111,12 +112,12 @@ public class UsuarioService {
     }
 
     public UsuarioEntity generate() {
-        //oAuthService.OnlyAdmins();
+        // oAuthService.OnlyAdmins();
         return generateRandomUser();
     }
 
     public Long generateSome(Integer amount) {
-        //oAuthService.OnlyAdmins();
+        // oAuthService.OnlyAdmins();
         List<UsuarioEntity> userList = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             UsuarioEntity oUsuarioEntity = generateRandomUser();
@@ -126,11 +127,11 @@ public class UsuarioService {
         return oUsuarioRepository.count();
     }
 
-    public UsuarioEntity getOneRandom() {        
+    public UsuarioEntity getOneRandom() {
         if (count() > 0) {
             List<UsuarioEntity> usuarioList = oUsuarioRepository.findAll();
             int iPosicion = RandomHelper.getRandomInt(0, (int) oUsuarioRepository.count() - 1);
-            return oUsuarioRepository.getById(usuarioList.get(iPosicion).getId());            
+            return oUsuarioRepository.getById(usuarioList.get(iPosicion).getId());
         } else {
             throw new CannotPerformOperationException("ho hay usuarios en la base de datos");
         }
@@ -141,11 +142,11 @@ public class UsuarioService {
         oUserEntity.setDni(generateDNI());
         oUserEntity.setNombre(generateName());
         oUserEntity.setApellidos(generateApellido());
-        
+
         oUserEntity.setLogin(oUserEntity.getNombre() + "_" + oUserEntity.getApellidos());
         oUserEntity.setPassword(PC_DEFAULT_PASSWORD); // wildcart
         oUserEntity.setEmail(generateEmail(oUserEntity.getNombre(), oUserEntity.getApellidos()));
-        
+
         if (RandomHelper.getRandomInt(0, 10) > 1) {
             oUserEntity.setTipousuario(oTipousuarioRepository.getById(TipoUsuarioHelper.USER));
         } else {
@@ -167,10 +168,9 @@ public class UsuarioService {
         return NOMBRES[RandomHelper.getRandomInt(0, NOMBRES.length - 1)].toLowerCase();
     }
 
-
     public void validate(Long id) {
-        if( !oUsuarioRepository.existsById(id)){
-            throw new ResourceNotFoundException("id "+ id + " no existe");
+        if (!oUsuarioRepository.existsById(id)) {
+            throw new ResourceNotFoundException("id " + id + " no existe");
         }
     }
 
@@ -192,23 +192,20 @@ public class UsuarioService {
         return value;
     }
 
-
     public void validate(UsuarioEntity oUsuarioEntity) {
-        
-        ValidationHelper.validateStringLength(oUsuarioEntity.getNombre(), 2, 50, "campo nombre de Usuario (el campo debe tener longitud de 2 a 50 caracteres");
-        ValidationHelper.validateStringLength(oUsuarioEntity.getApellidos(), 2, 100, "campo apellidos de Usuario (el campo debe tener longitud de 2 a 100 caracteres");
+
+        ValidationHelper.validateStringLength(oUsuarioEntity.getNombre(), 2, 50,
+                "campo nombre de Usuario (el campo debe tener longitud de 2 a 50 caracteres");
+        ValidationHelper.validateStringLength(oUsuarioEntity.getApellidos(), 2, 100,
+                "campo apellidos de Usuario (el campo debe tener longitud de 2 a 100 caracteres");
         ValidationHelper.validateDNI(oUsuarioEntity.getDni(), "campo DNI de Usuario");
         ValidationHelper.validateEmail(oUsuarioEntity.getEmail(), "campo email de Usuario");
         ValidationHelper.validateLogin(oUsuarioEntity.getLogin(), "campo login de Usuario");
-        if ( oUsuarioRepository.existsByLogin(oUsuarioEntity.getLogin()) ){
+        if (oUsuarioRepository.existsByLogin(oUsuarioEntity.getLogin())) {
             throw new ValidationException("el campo login está repetido");
         }
         oTipoUsuarioService.validate(oUsuarioEntity.getTipousuario().getId());
-        
+
     }
 
-
-
-
-    
 }
