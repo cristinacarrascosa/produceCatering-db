@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,4 +49,15 @@ public class EspacioController {
     public ResponseEntity<Long> delete(@PathVariable(value = "id") Long id) {
         return new ResponseEntity<Long>(oEspacioService.delete(id), HttpStatus.OK);
     }
+
+    @PostMapping("/")
+    public ResponseEntity<Long> create(@RequestBody EspacioEntity oEspacioEntity) {
+        return new ResponseEntity<Long>(oEspacioService.create(oEspacioEntity), HttpStatus.OK);
+    }
+
+    @PutMapping("/")
+    public ResponseEntity<Long> update(@RequestBody EspacioEntity oEspacioEntity) {
+        return new ResponseEntity<Long>(oEspacioService.update(oEspacioEntity.getId(), oEspacioEntity), HttpStatus.OK);
+    }
+
 }

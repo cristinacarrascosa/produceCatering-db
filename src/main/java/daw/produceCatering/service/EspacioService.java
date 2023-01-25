@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import daw.produceCatering.entity.EspacioEntity;
 import daw.produceCatering.exception.ResourceNotFoundException;
@@ -46,6 +47,32 @@ public class EspacioService {
             oPage = oEspacioRepository.findByNombreIgnoreCaseContaining(strFilter, oPageable);
         }
         return oPage;
+    }
+
+
+    public void validate(Long id) {
+        if (!oEspacioRepository.existsById(id)) {
+            throw new ResourceNotFoundException("id " + id + " no existe");
+        }
+    }
+
+    public void validate(EspacioEntity oEspacioEntity) {
+        ValidationHelper.validateStringLength(oEspacioEntity.getNombre(), 2, 100, "campo nombre Espacio (el campo debe tener longitud de 2 a 100 caracteres)");
+    }
+
+    public Long create(@RequestBody EspacioEntity oEspacioEntity) {
+        //oAuthService.OnlyAdmins();
+        validate(oEspacioEntity);
+        oEspacioEntity.setId(null);
+        return oEspacioRepository.save(oEspacioEntity).getId();
+    }
+
+    public Long update(Long id, EspacioEntity oEspacioEntity) {
+        //oAuthService.OnlyAdmins();
+        oEspacioEntity.setId(id);
+        validate(id);
+        validate(oEspacioEntity);
+        return oEspacioRepository.save(oEspacioEntity).getId();
     }
 
     public Long count() {
