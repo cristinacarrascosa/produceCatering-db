@@ -38,8 +38,7 @@ public class EspacioController {
     @GetMapping("")
     public ResponseEntity<Page<EspacioEntity>> getPage(
             @ParameterObject @PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable oPageable,
-            @RequestBody(name = "filter", required = false) String strFilter,
-            @RequestParam(name = "salon", required = false) Long lSalon) {
-        return new ResponseEntity<Page<EspacioEntity>>(oEspacioService.getPage(oPageable, strFilter, lSalon), HttpStatus.OK);
+            @RequestParam(name = "filter", required = false) String strFilter) {
+        return new ResponseEntity<Page<EspacioEntity>>(oEspacioService.getPage(oPageable, strFilter), HttpStatus.OK);
     }
 }

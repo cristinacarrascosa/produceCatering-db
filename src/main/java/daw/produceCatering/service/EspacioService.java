@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import daw.produceCatering.entity.EspacioEntity;
 import daw.produceCatering.exception.ResourceNotFoundException;
 import daw.produceCatering.repository.EspacioRepository;
-import daw.produceCatering.repository.SalonRepository;
+
 import daw.produceCatering.helper.ValidationHelper;
 
 
@@ -21,7 +21,9 @@ public class EspacioService {
     EspacioRepository oEspacioRepository;
 
     @Autowired
-    SalonRepository oSalonRepository;
+    AuthService oAuthService;
+
+    
 
     public EspacioEntity get(Long id){
 
@@ -33,29 +35,16 @@ public class EspacioService {
 
     }
 
-    // public Page<EspacioEntity> getPage(Pageable oPageable, String strFilter, Long lSalon) {
-
-    //     ValidationHelper.validateRPP(oPageable.getPageSize());
-    //     Page<EspacioEntity> oPage = null;
-    //     if (lSalon == null) {
-    //         if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
-    //             oPage = oSalonRepository.findAll(oPageable);
-    //         } else {
-    //             oPage = oSalonRepository
-    //                     .findByDniIgnoreCaseContainingOrNombreIgnoreCaseContainingOrApellidosIgnoreCaseContaining(
-    //                             strFilter, strFilter, strFilter, oPageable);
-    //         }
-    //     } else {
-    //         if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
-    //             oPage = oSalonRepository.findByTipousuarioId(lSalon, oPageable);
-    //         } else {
-    //             oPage = oSalonRepository
-    //                     .findByTipousuarioIdAndDniIgnoreCaseContainingOrNombreIgnoreCaseContainingOrApellidosIgnoreCaseContaining(
-    //                             lSalon, strFilter, strFilter, strFilter, oPageable);
-    //         }
-    //     }
-    //     return oPage;
-    // }
+    public Page<EspacioEntity> getPage(Pageable oPageable, String strFilter) {
+        ValidationHelper.validateRPP(oPageable.getPageSize());
+        Page<EspacioEntity> oPage = null;
+        if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
+            oPage = oEspacioRepository.findAll(oPageable);
+        } else {
+            oPage = oEspacioRepository.findByNombreIgnoreCaseContaining(strFilter, oPageable);
+        }
+        return oPage;
+    }
 
     public Long count() {
         // falta añadir onlyAdmin si hace falta
