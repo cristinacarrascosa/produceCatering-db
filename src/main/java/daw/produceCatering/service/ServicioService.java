@@ -11,14 +11,14 @@ import daw.produceCatering.repository.ServicioRepository;
 @Service
 public class ServicioService {
 
-    @Autowired
-    SalonService oSalonService;
+    //@Autowired
+    //SalonService oSalonService;
 
-    @Autowired
-    UsuarioService oUsuarioService;
+    //@Autowired
+    //UsuarioService oUsuarioService;
 
-    @Autowired
-    AuthService oAuthService;
+    //@Autowired
+    //AuthService oAuthService;
 
     @Autowired
     ServicioRepository oServicioRepository;
