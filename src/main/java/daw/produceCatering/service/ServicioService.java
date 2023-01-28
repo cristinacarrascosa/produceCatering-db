@@ -1,24 +1,29 @@
 package daw.produceCatering.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
 import daw.produceCatering.entity.ServicioEntity;
 import daw.produceCatering.exception.ResourceNotFoundException;
+import daw.produceCatering.helper.ValidationHelper;
 import daw.produceCatering.repository.ServicioRepository;
 
 @Service
 public class ServicioService {
 
-    //@Autowired
-    //SalonService oSalonService;
+    @Autowired
+    SalonService oSalonService;
 
-    //@Autowired
-    //UsuarioService oUsuarioService;
+    @Autowired
+    UsuarioService oUsuarioService;
 
-    //@Autowired
-    //AuthService oAuthService;
+    @Autowired
+    AuthService oAuthService;
 
     @Autowired
     ServicioRepository oServicioRepository;
@@ -34,9 +39,73 @@ public class ServicioService {
         }
     }
 
+    public Page<ServicioEntity> getPage(Pageable oPageable, String strFilter, Long id_usuario, Long id_salon, Integer comensales) {
+        //oAuthService.OnlyAdminsOrUsers();
+        ValidationHelper.validateRPP(oPageable.getPageSize());
+        Page<ServicioEntity> oPage = null;
+        if (id_usuario != null) {
+            if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
+                oPage = oServicioRepository.findByUsuarioId(id_usuario, oPageable);
+            } else {
+                oPage = oServicioRepository.findByUsuarioIdAndFechaHoraContainingAndComensalesContaining( id_usuario,strFilter,comensales, oPageable);
+            }
+        } else if (id_salon != null) {
+            if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
+                oPage = oServicioRepository.findBySalonId(id_salon, oPageable);
+            } else {
+                oPage = oServicioRepository.findBySalonIdAndFechaHoraContainingAndComensalesContaining(id_salon, strFilter, comensales ,oPageable);
+            }
+        } else {
+            if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
+                oPage = oServicioRepository.findAll(oPageable);
+            } else {
+                oPage = oServicioRepository.findByFechaHoraContainingAndComensalesContaining( strFilter, comensales, oPageable);
+            }
+        }
+        
+        return oPage;
+    }
+
+
     public Long count() {
         // falta añadir onlyAdmin si hace falta
         return oServicioRepository.count();
+    }
+
+    public void validate(ServicioEntity oServicioEntity) {
+        oUsuarioService.validate(oServicioEntity.getUsuario().getId());
+        oSalonService.validate(oServicioEntity.getSalon().getId());
+    }
+
+    @Transactional
+    public Long create(ServicioEntity oServicioEntity) {
+       // oAuthService.OnlyAdmins();
+        validate(oServicioEntity);
+        oUsuarioService.validate(oServicioEntity.getUsuario().getId());
+        oServicioEntity.setUsuario(oUsuarioService.get(oServicioEntity.getUsuario().getId()));
+        oSalonService.validate(oServicioEntity.getSalon().getId());
+        oServicioEntity.setSalon(oSalonService.get(oServicioEntity.getSalon().getId()));
+        oServicioEntity.setId(null);
+        return ((ServicioEntity) oServicioRepository.save(oServicioEntity)).getId();
+    }
+
+    @Transactional
+    public Long update(ServicioEntity oServicioEntity) {
+        //oAuthService.OnlyAdmins();
+        validate(oServicioEntity.getId());
+        validate(oServicioEntity);
+        oUsuarioService.validate(oServicioEntity.getUsuario().getId());
+        oServicioEntity.setUsuario(oUsuarioService.get(oServicioEntity.getUsuario().getId()));
+        oSalonService.validate(oServicioEntity.getSalon().getId());
+        oServicioEntity.setSalon(oSalonService.get(oServicioEntity.getSalon().getId()));
+        return oServicioRepository.save(oServicioEntity).getId();
+    }
+
+    public Long delete(Long id) {
+        //oAuthService.OnlyAdmins();
+        validate(id);
+        oServicioRepository.deleteById(id);
+        return id;
     }
 
   
