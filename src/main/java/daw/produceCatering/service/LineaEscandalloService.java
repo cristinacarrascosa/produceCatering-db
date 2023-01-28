@@ -4,6 +4,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -43,17 +44,19 @@ public class LineaEscandalloService {
         return oLineaEscandalloRepository.count();
     }
 
-    public Page<LineaEscandalloEntity> getPage(Pageable oPageable, Long lEscandallo, Long lReferencia) {
-        ValidationHelper.validateRPP(oPageable.getPageSize());
-        Page<LineaEscandalloEntity> oPage = null;
-        if (lEscandallo == null) 
-            
-                oPage = oLineaEscandalloRepository.findAll(oPageable);
-            
-    
-            
-       
-        return oPage;
+
+    public Page<LineaEscandalloEntity> getPage(Long id_escandallo, Long id_referencia, int page, int size) {
+        //oAuthService.OnlyAdmins();
+        Pageable oPageable = PageRequest.of(page, size);
+        if (id_escandallo == null && id_referencia == null) {
+            return oLineaEscandalloRepository.findAll(oPageable);
+        } else if (id_escandallo == null) {
+            return oLineaEscandalloRepository.findByReferenciaId(id_referencia, oPageable);
+        } else if (id_referencia == null) {
+            return oLineaEscandalloRepository.findByEscandalloId(id_escandallo, oPageable);
+        } else {
+            return oLineaEscandalloRepository.findByEscandalloIdAndReferenciaId(id_escandallo, id_referencia, oPageable);
+        }
     }
 
     public Long create(LineaEscandalloEntity oLineaEscandalloEntity) {
