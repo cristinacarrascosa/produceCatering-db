@@ -55,7 +55,7 @@ public class EspacioController {
         return new ResponseEntity<Long>(oEspacioService.create(oEspacioEntity), HttpStatus.OK);
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<Long> update(@RequestBody EspacioEntity oEspacioEntity) {
         return new ResponseEntity<Long>(oEspacioService.update(oEspacioEntity.getId(), oEspacioEntity), HttpStatus.OK);
     }
