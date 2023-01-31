@@ -39,27 +39,34 @@ public class ServicioService {
         }
     }
 
-    public Page<ServicioEntity> getPage(Pageable oPageable, String strFilter, Long id_usuario, Long id_salon, Integer comensales) {
+    public Page<ServicioEntity> getPage(Pageable oPageable, String strFilter, Long id_usuario, Long id_salon) {
         //oAuthService.OnlyAdminsOrUsers();
         ValidationHelper.validateRPP(oPageable.getPageSize());
         Page<ServicioEntity> oPage = null;
-        if (id_usuario != null) {
+        if (id_usuario != null && id_salon != null) {
+            if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
+                oPage = oServicioRepository.findByUsuarioIdAndSalonId(id_usuario, id_salon, oPageable);
+            } else {
+                oPage = oServicioRepository.findByUsuarioIdAndSalonIdAndFechahoraContaining( id_usuario, id_salon, strFilter, oPageable);
+            }
+        }
+        else if (id_usuario != null) {
             if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
                 oPage = oServicioRepository.findByUsuarioId(id_usuario, oPageable);
             } else {
-                oPage = oServicioRepository.findByUsuarioIdAndFechaHoraContainingAndComensalesContaining( id_usuario,strFilter,comensales, oPageable);
+                oPage = oServicioRepository.findByUsuarioIdAndFechahoraContaining( id_usuario,strFilter, oPageable);
             }
         } else if (id_salon != null) {
             if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
                 oPage = oServicioRepository.findBySalonId(id_salon, oPageable);
             } else {
-                oPage = oServicioRepository.findBySalonIdAndFechaHoraContainingAndComensalesContaining(id_salon, strFilter, comensales ,oPageable);
+                oPage = oServicioRepository.findBySalonIdAndFechahoraContaining(id_salon, strFilter, oPageable);
             }
         } else {
             if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
                 oPage = oServicioRepository.findAll(oPageable);
             } else {
-                oPage = oServicioRepository.findByFechaHoraContainingAndComensalesContaining( strFilter, comensales, oPageable);
+                oPage = oServicioRepository.findByFechahoraContaining( strFilter,oPageable);
             }
         }
         

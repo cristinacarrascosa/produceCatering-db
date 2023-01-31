@@ -39,10 +39,8 @@ public class ServicioController {
             @ParameterObject @PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable oPageable,
             @RequestParam(name = "filter", required = false) String strFilter,
             @RequestParam(name = "usuario", required = false) Long lUsuario,
-            @RequestParam(name = "salon", required = false) Long lSalon,
-            @RequestParam(name = "fechaHora", required = false) String strFechaHora,
-            @RequestParam(name = "comensales", required = false) Integer iComensales) {
-        return new ResponseEntity<Page<ServicioEntity>>(oServicioService.getPage(oPageable, strFilter, lUsuario, lSalon, iComensales), HttpStatus.OK);
+            @RequestParam(name = "salon", required = false) Long lSalon) {
+        return new ResponseEntity<Page<ServicioEntity>>(oServicioService.getPage(oPageable, strFilter, lUsuario, lSalon), HttpStatus.OK);
     }
 
     @GetMapping("/count")
