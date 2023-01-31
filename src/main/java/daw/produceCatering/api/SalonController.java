@@ -56,7 +56,7 @@ public class SalonController {
         return new ResponseEntity<Long>(oSalonService.delete(id), HttpStatus.OK);
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<Long> update(@RequestBody SalonEntity oSalonEntity) {
         return new ResponseEntity<Long>(oSalonService.update(oSalonEntity), HttpStatus.OK);
     }
