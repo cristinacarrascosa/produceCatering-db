@@ -15,7 +15,7 @@ public interface ServicioRepository extends JpaRepository<ServicioEntity, Long>{
 
     public Page<ServicioEntity> findByUsuarioIdAndSalonId(Long id_usuario, Long id_salon, Pageable oPageable);
 
-    @Query(value = "SELECT * FROM servicio WHERE fechaHora LIKE %?1%", nativeQuery = true)
+    @Query(value = "SELECT * FROM servicio WHERE fechaHora LIKE %?1%" , nativeQuery = true)
     public Page<ServicioEntity> findByFechahoraContaining(String fecha_hora, Pageable oPageable);
 
     @Query(value = "SELECT * FROM servicio WHERE fechaHora LIKE %?2% AND id_usuario = ?1", nativeQuery = true)
