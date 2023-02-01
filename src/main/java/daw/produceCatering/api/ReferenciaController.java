@@ -55,7 +55,7 @@ public class ReferenciaController {
         return new ResponseEntity<Long>(oReferenciaService.delete(id), HttpStatus.OK);
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<Long> update(@RequestBody ReferenciaEntity oReferenciaEntity) {
         return new ResponseEntity<Long>(oReferenciaService.update(oReferenciaEntity.getId(), oReferenciaEntity), HttpStatus.OK);
     }

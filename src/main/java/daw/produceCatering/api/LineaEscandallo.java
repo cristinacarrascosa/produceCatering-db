@@ -54,7 +54,7 @@ public class LineaEscandallo {
         return new ResponseEntity<Long>(oLineaEscandalloService.create(oLineaEscandalloEntity), HttpStatus.OK);
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<Long> update(@RequestBody LineaEscandalloEntity oLineaEscandalloEntity) {
         return new ResponseEntity<Long>(oLineaEscandalloService.update(oLineaEscandalloEntity), HttpStatus.OK);
     }

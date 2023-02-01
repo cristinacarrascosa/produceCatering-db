@@ -58,7 +58,7 @@ public class EscandalloController {
     }
 
    
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<Long> update(@RequestBody EscandalloEntity oEscandalloEntity) {
         return new ResponseEntity<Long>(oEscandalloService.update(oEscandalloEntity), HttpStatus.OK);
     }
