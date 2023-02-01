@@ -54,7 +54,7 @@ public class ServicioController {
     }
 
    
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<Long> update(@RequestBody ServicioEntity oServicioEntity) {
         return new ResponseEntity<Long>(oServicioService.update(oServicioEntity), HttpStatus.OK);
     }
