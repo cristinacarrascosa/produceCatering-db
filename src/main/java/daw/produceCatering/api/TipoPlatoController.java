@@ -55,7 +55,7 @@ public class TipoPlatoController {
         return new ResponseEntity<Long>(oTipoPlatoService.delete(id), HttpStatus.OK);
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<Long> update(@RequestBody TipoPlatoEntity oTipoPlatoEntity) {
         return new ResponseEntity<Long>(oTipoPlatoService.update(oTipoPlatoEntity.getId(), oTipoPlatoEntity), HttpStatus.OK);
     }
