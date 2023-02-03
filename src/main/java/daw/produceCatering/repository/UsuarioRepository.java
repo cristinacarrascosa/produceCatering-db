@@ -17,4 +17,6 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long>{
     Page<UsuarioEntity> findByTipousuarioIdAndDniIgnoreCaseContainingOrNombreIgnoreCaseContainingOrApellidosIgnoreCaseContaining(Long filtertype, String dni, String nombre, String apellidos,Pageable oPageable);
 
     Page<UsuarioEntity> findByTipousuarioId(Long id_tipousuario, Pageable oPageable);
+
+    UsuarioEntity findByLogin(String attribute);
 }
