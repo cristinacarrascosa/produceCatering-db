@@ -1,5 +1,7 @@
 package daw.produceCatering.service;
 
+import java.time.LocalDateTime;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.stereotype.Service;
 import daw.produceCatering.entity.ServicioEntity;
 import daw.produceCatering.exception.ResourceNotFoundException;
 import daw.produceCatering.helper.ValidationHelper;
+import daw.produceCatering.repository.SalonRepository;
 import daw.produceCatering.repository.ServicioRepository;
+import daw.produceCatering.repository.UsuarioRepository;
 
 @Service
 public class ServicioService {
@@ -24,6 +28,12 @@ public class ServicioService {
 
     @Autowired
     AuthService oAuthService;
+
+    @Autowired
+    UsuarioRepository oUsuarioRepository;
+
+    @Autowired
+    SalonRepository oSalonRepository;
 
     @Autowired
     ServicioRepository oServicioRepository;
@@ -101,6 +111,7 @@ public class ServicioService {
         //oAuthService.OnlyAdmins();
         validate(oServicioEntity.getId());
         validate(oServicioEntity);
+        //LocalDateTime.parse(oServicioEntity.getFechaHora());
         oUsuarioService.validate(oServicioEntity.getUsuario().getId());
         oServicioEntity.setUsuario(oUsuarioService.get(oServicioEntity.getUsuario().getId()));
         oSalonService.validate(oServicioEntity.getSalon().getId());

@@ -33,6 +33,9 @@ public class UsuarioService {
     @Autowired
     TipousuarioRepository oTipousuarioRepository;
 
+    @Autowired
+    AuthService oAuthService;
+
     private final String DNI_LETTERS = "TRWAGMYFPDXBNJZSQVHLCKE";
     private final String PC_DEFAULT_PASSWORD = "1234";
     private final String[] NOMBRES = { "Jose", "Mark", "Elen", "Toni", "Hector", "Jose", "Laura", "Vika", "Sergio",
@@ -54,7 +57,7 @@ public class UsuarioService {
     }
 
     public Page<UsuarioEntity> getPage(Pageable oPageable, String strFilter, Long lTipoUsuario) {
-
+        oAuthService.OnlyAdmins();
         ValidationHelper.validateRPP(oPageable.getPageSize());
         Page<UsuarioEntity> oPage = null;
         if (lTipoUsuario == null) {

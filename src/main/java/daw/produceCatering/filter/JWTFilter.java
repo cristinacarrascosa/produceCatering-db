@@ -38,7 +38,7 @@ public class JWTFilter implements Filter {
                 String token = auth.substring(7);
                 try {
                     String nombre = JwtHelper.validateJWT(token);
-                    request.setAttribute("developer", nombre);
+                    request.setAttribute("usuario", nombre);
                 } catch (Exception e) {
                     throw new ServletException("Invalid token");
                 }
