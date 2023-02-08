@@ -27,5 +27,10 @@ public class SessionController {
         return new ResponseEntity<String>("\"" + oAuthService.login(oUserBean) + "\"", HttpStatus.OK);
     }
 
+    @GetMapping("/getUserId")
+    public ResponseEntity<Long> getUserId() {
+        return new ResponseEntity<Long>(oAuthService.getUserID(), HttpStatus.OK);
+    }
+
     
 }
