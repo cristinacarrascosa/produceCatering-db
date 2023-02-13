@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 29-01-2023 a las 01:06:08
+-- Tiempo de generación: 12-02-2023 a las 21:03:11
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.12
 
@@ -39,17 +39,38 @@ CREATE TABLE `escandallo` (
 
 INSERT INTO `escandallo` (`id`, `nombre`, `id_tipoplato`) VALUES
 (1, 'Nueces de macadamia', 1),
-(2, 'Pincho de gamba con tomate seco y salsa agridulce', 2),
-(3, 'Monedero saquito de marisco con salsa de soja', 3),
+(2, 'Pincho de gamba con tomate seco y salsa agridulce', 8),
+(3, 'Tartar de atún con crujiente de nori(pepino y salsa chile)', 8),
 (4, 'Mini brocheta de frutas', 6),
 (5, 'Nueces de macadamia', 1),
-(6, 'Pincho de gamba con tomate seco y salsa agridulce', 2),
+(6, 'Pincho de gamba con tomate seco y salsa agridulce', 8),
 (7, 'Monedero saquito de marisco con salsa de soja', 3),
-(8, 'Mini brocheta de frutas', 6),
-(9, 'PRUEBA CREATE', 2),
-(10, 'PRUEBA UPDATE', 1),
-(12, 'PRUEBA DELETE', 1),
-(13, 'Tuber chips con sal de setas', 1);
+(8, 'Corneto soft de pollo y nata con mermelada tomate dulce y crujiente de albahaca', 8),
+(9, 'Crujiente de pan i oli i sucre', 1),
+(10, 'Poke de quinoa con pollo, cebolla morada, edamame, aguacate, pepino, mango y salsa kimchie', 8),
+(13, 'Tuber chips con sal de setas', 1),
+(14, 'Barbalada Silver(Brandad Bacalao confitado y crujiente arroz)', 8),
+(15, 'Atún sobre pan polar hummus y germinados', 8),
+(16, 'Macarrón de foie con crujiente de kikos y oro', 8),
+(17, 'Ensaladilla de cigalas con crema de limón y encurtidos', 8),
+(18, 'Tartar de vacuno sobre tosta', 8),
+(19, 'Canelón de pato i foie con bechamel de setas y trufa', 3),
+(20, 'Hamburguesa botón con queso', 3),
+(21, 'Témpura de verduras con salsa calçots', 3),
+(22, 'Surtido de croquetas de autor', 3),
+(23, 'Tartaleta de chocolate con Baileys y merengue tostado', 6),
+(24, 'Yogur con fresitas (chupito)', 6),
+(25, 'Trufas de naranja', 6),
+(26, 'Mini hojaldre de crema pastelera caramelizada', 6),
+(27, 'Sal maldon', 7),
+(28, 'Mangas pasteleras', 7),
+(29, 'Aceite de oliva', 7),
+(30, 'Aceite de girasol', 7),
+(31, 'Reducción de balsámico', 7),
+(32, 'Reducción de px', 7),
+(33, 'Limones frescos', 7),
+(34, 'Solomillo de ternera a la sal', 4),
+(35, 'Lubina con arroz cremoso de setas', 5);
 
 -- --------------------------------------------------------
 
@@ -70,11 +91,12 @@ CREATE TABLE `espacio` (
 
 INSERT INTO `espacio` (`id`, `nombre`, `direccion`, `telefono`) VALUES
 (1, 'Hotel Las Arenas Balneario Resort', 'C/Eugenia Vinyes, 22-24 46011-Valencia', '609175185'),
-(3, 'Espacio 2', 'C/Prueba, 1', '123456789'),
-(4, 'Espacio 3', 'C/Prueba 4', '123654789'),
-(5, 'Espacio 2', 'C/Prueba, 1', '123456789'),
-(6, 'Espacio 3', 'C/Prueba 4', '123654789'),
-(7, 'Espacio nuevo prueba id', 'C/Prueba id', '159753456');
+(3, 'La Vallesa de Mandor', 'Ctra. de San Antonio a Ribarroja km 4,7 - Ribarroja', '678638732'),
+(4, 'Masia del Carmen', 'CV - 310 s/n, Valencia', '687463301'),
+(5, 'Cartuja de Ara Christi', 'Antigua Ctra. Barcelona, km 13.300 - El Puig', '637782618'),
+(9, 'Museo del Carmen', 'Plaza Canovas del castillo nº1, planta 2 – 46005 Valencia', '651235789'),
+(10, 'Hort de Sant Josep', 'Carretera de Tous, s/n 46260 Alberic (Valencia)', '698752123'),
+(11, 'Huerto San Vicente', 'Camino de la pedrera s/n Picanya 46120 Valencia', '698751456');
 
 -- --------------------------------------------------------
 
@@ -93,10 +115,78 @@ CREATE TABLE `lineaescandallo` (
 --
 
 INSERT INTO `lineaescandallo` (`id`, `id_escandallo`, `id_referencia`) VALUES
-(1, 1, 1),
-(2, 2, 10),
-(3, 7, 1),
-(4, 7, 2);
+(1, 7, 1),
+(2, 2, 9),
+(4, 7, 2),
+(6, 1, 6),
+(7, 13, 7),
+(9, 15, 13),
+(10, 15, 14),
+(11, 15, 15),
+(12, 15, 16),
+(13, 4, 54),
+(14, 2, 10),
+(15, 13, 8),
+(16, 9, 5),
+(17, 10, 12),
+(18, 10, 17),
+(19, 10, 18),
+(20, 10, 19),
+(21, 10, 20),
+(22, 10, 22),
+(23, 10, 21),
+(24, 10, 23),
+(25, 14, 24),
+(26, 14, 25),
+(27, 8, 27),
+(28, 8, 29),
+(29, 8, 28),
+(30, 3, 30),
+(31, 3, 31),
+(32, 3, 32),
+(33, 3, 33),
+(34, 16, 34),
+(35, 17, 35),
+(36, 17, 36),
+(37, 17, 37),
+(38, 18, 38),
+(39, 18, 40),
+(40, 18, 41),
+(41, 18, 39),
+(42, 19, 42),
+(43, 19, 43),
+(44, 20, 3),
+(45, 21, 44),
+(46, 21, 45),
+(47, 22, 46),
+(48, 22, 47),
+(49, 22, 48),
+(50, 22, 49),
+(51, 22, 50),
+(52, 23, 51),
+(53, 23, 52),
+(54, 23, 53),
+(55, 24, 55),
+(56, 24, 56),
+(57, 25, 57),
+(58, 26, 58),
+(59, 26, 59),
+(60, 27, 60),
+(61, 28, 61),
+(62, 29, 62),
+(63, 30, 63),
+(64, 31, 64),
+(65, 32, 65),
+(66, 33, 66),
+(67, 33, 66),
+(68, 34, 67),
+(69, 34, 68),
+(70, 34, 69),
+(71, 34, 70),
+(72, 34, 60),
+(73, 35, 71),
+(74, 35, 72),
+(75, 35, 73);
 
 -- --------------------------------------------------------
 
@@ -116,9 +206,23 @@ CREATE TABLE `lineaservicio` (
 --
 
 INSERT INTO `lineaservicio` (`pax`, `id`, `id_servicio`, `id_escandallo`) VALUES
-(300, 1, 1, 1),
-(90, 2, 1, 1),
-(600, 4, 2, 1);
+(120, 1, 1, 1),
+(93, 2, 1, 16),
+(600, 4, 2, 1),
+(110, 6, 3, 1),
+(10, 7, 7, 4),
+(6, 8, 7, 14),
+(250, 9, 9, 4),
+(500, 10, 9, 15),
+(100, 11, 24, 13),
+(15, 12, 24, 10),
+(98, 13, 1, 19),
+(100, 14, 1, 23),
+(150, 15, 2, 8),
+(145, 16, 2, 34),
+(100, 17, 3, 17),
+(100, 18, 3, 35),
+(100, 19, 3, 24);
 
 -- --------------------------------------------------------
 
@@ -136,16 +240,77 @@ CREATE TABLE `referencia` (
 --
 
 INSERT INTO `referencia` (`id`, `nombre`) VALUES
-(1, 'Monedero saquito de marisco'),
+(1, 'Monedero saquito de marisco relleno'),
 (2, 'Salsa de soja'),
-(3, 'PRUEBA UPDATE'),
-(5, 'PRUEBA CREATE'),
+(3, 'Hamburguesa botón con queso'),
+(5, 'Crujiente de pan i oli i sucre'),
 (6, 'Nueces de macadamia'),
 (7, 'Tuber chips'),
 (8, 'Sal de setas'),
 (9, 'Pincho de gamba '),
 (10, 'Salsa agridulce'),
-(11, 'Salsa de soja');
+(12, 'Quinoa cocida'),
+(13, 'Atún fresco dado grande'),
+(14, 'Pan polar'),
+(15, 'Hummus'),
+(16, 'Germinados de cebolla'),
+(17, 'Pollo cocinado de compra en juliana'),
+(18, 'Cebolla morada fresca en juliana'),
+(19, 'Edamame fresco'),
+(20, 'Aguacate en dados'),
+(21, 'Pepino en rodajas '),
+(22, 'Mango fresco bruinoise'),
+(23, 'Salsa Kimchie'),
+(24, 'Brandada de bacalao confitado '),
+(25, 'Crujiente de arroz'),
+(26, 'Cornetto blanco'),
+(27, 'Soft de pollo'),
+(28, 'Crujiente de albahaca'),
+(29, 'Mermelada de tomate'),
+(30, 'Atún fresco tartar'),
+(31, 'Crujiente de alga nori'),
+(32, 'Pepino bruinoise sin piel'),
+(33, 'Salsa Chile'),
+(34, 'Macarrón de foie con crujiente de kikos y oro'),
+(35, 'Ensaladilla de cigalas'),
+(36, 'Fresa fresca 1/4'),
+(37, 'Grosella 1 unidad'),
+(38, 'Tartar de solomillo de ternera'),
+(39, 'Tosta de pepe'),
+(40, 'Picadillo de encurtidos'),
+(41, 'Mahomostaza para tartar de solomillo'),
+(42, 'Canelón de pato (degustación)'),
+(43, 'Bechamel de setas y trufa'),
+(44, 'Témpura de verduras 4 tipos, 3 bastones por persona'),
+(45, 'Salsa calçots'),
+(46, 'Croquetas de jamón'),
+(47, 'Croquetas de queso de cabra'),
+(48, 'Croquetas de gambón'),
+(49, 'Croquetas de pollo'),
+(50, 'Croquetas de ceps'),
+(51, 'Tartaleta de chocolate'),
+(52, 'Crema de Bileys'),
+(53, 'Merengue tostado'),
+(54, 'Brocheta de frutas (naranja, piña, fresa)'),
+(55, 'Yogur griego chupito'),
+(56, 'Fresa bruinoise'),
+(57, 'Trufas de naranja'),
+(58, 'Mini hojaldre'),
+(59, 'Crema pastelera caramelizada'),
+(60, 'Sal maldon'),
+(61, 'Mangas pasteleras'),
+(62, 'Aceite de oliva'),
+(63, 'Aceite de girasol'),
+(64, 'Reducción de balsámico'),
+(65, 'Reducción de px'),
+(66, 'Limones frescos'),
+(67, 'Solomillo de ternera (ración 200gr)'),
+(68, 'Puré de patata (100gr)'),
+(69, 'Puerro frito'),
+(70, 'Salsa jugo asado'),
+(71, 'Lubina ración (filete)'),
+(72, 'Arroz cremoso de setas (100gr)'),
+(73, 'Jugo del Asado (50 gr)');
 
 -- --------------------------------------------------------
 
@@ -164,11 +329,19 @@ CREATE TABLE `salon` (
 --
 
 INSERT INTO `salon` (`id`, `id_espacio`, `nombre`) VALUES
-(1, 1, 'Diana'),
-(2, 1, 'Helena'),
+(1, 5, 'Jardín Frontal Cartuja'),
+(2, 4, 'Pérgola de Cristal'),
 (3, 1, 'Zeus'),
 (4, 1, 'Apolo'),
-(5, 3, 'Ares 2');
+(6, 1, 'Helena'),
+(8, 5, 'Refectorio'),
+(9, 9, 'Capilla Medieval'),
+(10, 9, 'Claustro Gótico'),
+(11, 5, 'Claustro Cubierto'),
+(12, 3, 'Jardín Frontal Vallesa'),
+(13, 3, 'Salón Vallesa'),
+(14, 11, 'Salón de los Naranjos'),
+(15, 10, 'Carpa  Acristalada');
 
 -- --------------------------------------------------------
 
@@ -189,11 +362,28 @@ CREATE TABLE `servicio` (
 --
 
 INSERT INTO `servicio` (`id`, `id_salon`, `fechaHora`, `comensales`, `id_usuario`) VALUES
-(1, 1, '2022-12-22 12:00:39', 100, 44),
-(2, 2, '2022-12-24 20:00:39', 150, 47),
+(1, 2, '2022-12-16 20:00:00', 100, 99),
+(2, 2, '2022-12-24 20:00:39', 150, 51),
 (3, 4, '2023-01-25 21:00:00', 100, 60),
-(4, 3, '2023-03-01 13:00:00', 10, 60),
-(6, 3, '2023-04-01 12:00:00', 40, 60);
+(6, 2, '2023-04-01 12:00:00', 40, 60),
+(7, 4, '2023-02-15 05:30:28', 300, 47),
+(8, 6, '2023-02-16 10:15:20', 300, 48),
+(9, 4, '2023-02-02 16:46:33', 500, 2171),
+(10, 3, '2023-02-15 13:56:37', 300, 47),
+(11, 6, '2023-02-23 14:36:27', 300, 47),
+(12, 2, '2012-02-29 14:39:47', 345, 48),
+(13, 1, '2023-02-14 10:34:27', 25, 47),
+(14, 8, '2023-02-16 18:30:49', 100, 57),
+(15, 9, '2023-02-24 11:00:04', 150, 49),
+(16, 10, '2023-02-25 19:30:15', 75, 3310),
+(17, 10, '2023-03-10 18:30:13', 81, 3312),
+(18, 11, '2023-04-14 16:30:25', 125, 59),
+(19, 12, '2024-01-25 10:30:18', 65, 2171),
+(20, 13, '2023-02-11 11:00:43', 300, 3311),
+(21, 13, '2025-08-15 17:30:09', 500, 58),
+(22, 14, '2024-07-13 16:30:36', 150, 68),
+(23, 15, '2029-09-16 08:00:47', 25, 67),
+(24, 14, '2023-07-15 19:00:00', 15, 2171);
 
 -- --------------------------------------------------------
 
@@ -212,21 +402,15 @@ CREATE TABLE `tipoplato` (
 
 INSERT INTO `tipoplato` (`id`, `nombre`) VALUES
 (1, 'Snacks'),
-(2, 'Aperitivos Fríos'),
+(2, 'Aperitivos'),
 (3, 'Aperitivos Calientes'),
 (4, 'Carnes'),
 (5, 'Pescados'),
 (6, 'Postres'),
-(7, 'Snacks'),
+(7, 'Necesidades (Aceites, Sales y Otros)'),
 (8, 'Aperitivos Fríos'),
-(9, 'Aperitivos Calientes'),
-(10, 'Carnes'),
-(11, 'Pescados'),
-(12, 'Postres'),
-(13, 'Prueba 1'),
-(14, 'Prueba 2'),
-(15, 'PRUEBA UPDATE'),
-(17, 'PRUEBA CREATE');
+(10, 'Producto externo'),
+(19, 'Productos Frescos');
 
 -- --------------------------------------------------------
 
@@ -269,11 +453,11 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `id_tipousuario`, `nombre`, `apellidos`, `dni`, `email`, `login`, `password`) VALUES
-(44, 2, 'hector', 'arias', '55695691H', 'arias_hector@daw.tk', 'hector_arias', '1234'),
+(44, 2, 'hector', 'arias', '55695691H', 'arias_hector@daw.tk', 'hector_arias', '123456789'),
 (47, 2, 'rafa', 'peyro', '37540307Y', 'peyro_rafa@daw.tk', 'rafa_peyro', '1234'),
 (48, 2, 'jose', 'lence', '72374206Z', 'jose_lence@daw.tk', 'jose_lence', '1234'),
 (49, 2, 'jose', 'mocholi', '60631442S', 'jose_mocholi@daw.tk', 'jose_mocholi', '1234'),
-(51, 1, 'sergio', 'tatay', '98280846Y', 'sergio_tatay@daw.tk', 'sergio_tatay', '1234'),
+(51, 1, 'sergio', 'tatay', '98280846Y', 'sergio_tatay@daw.tk', 'sergio_tatay', '12344321'),
 (52, 2, 'daniel', 'cosin', '17258208C', 'daniel_cosin@daw.tk', 'daniel_cosin', '1234'),
 (53, 2, 'toni', 'valcarcel', '73729220Y', 'toni_valcarcel@daw.tk', 'toni_valcarcel', '1234'),
 (54, 2, 'daniel', 'santos', '13527639M', 'santos_daniel@daw.tk', 'daniel_santos', '1234'),
@@ -3536,7 +3720,9 @@ INSERT INTO `usuario` (`id`, `id_tipousuario`, `nombre`, `apellidos`, `dni`, `em
 (3309, 2, 'sergio', 'cosin', '80810703L', 'sergio_cosin@daw.tk', 'sergio_cosin', '1234'),
 (3310, 1, 'pere', 'alcocer', '86439077V', 'pere_alcocer@daw.tk', 'pere_alcocer', '1234'),
 (3311, 2, 'rafa', 'sesa', '35693165V', 'sesa_rafa@daw.tk', 'rafa_sesa', '1234'),
-(3312, 2, 'laura', 'ortega', '19505300N', 'ortega_laura@daw.tk', 'laura_ortega', '1234');
+(3312, 2, 'laura', 'ortega', '19505300N', 'ortega_laura@daw.tk', 'laura_ortega', '1234'),
+(3315, 1, 'admin', 'admin admin', '20834113T', 'admin@admin.com', 'admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4'),
+(3316, 2, 'user', 'user user', '20834113T', 'user@user.com', 'user', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4');
 
 --
 -- Índices para tablas volcadas
@@ -3610,49 +3796,49 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `escandallo`
 --
 ALTER TABLE `escandallo`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `espacio`
 --
 ALTER TABLE `espacio`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `lineaescandallo`
 --
 ALTER TABLE `lineaescandallo`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT de la tabla `lineaservicio`
 --
 ALTER TABLE `lineaservicio`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `referencia`
 --
 ALTER TABLE `referencia`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT de la tabla `salon`
 --
 ALTER TABLE `salon`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `servicio`
 --
 ALTER TABLE `servicio`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `tipoplato`
 --
 ALTER TABLE `tipoplato`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `tipousuario`
@@ -3664,7 +3850,7 @@ ALTER TABLE `tipousuario`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3315;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3317;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
