@@ -37,7 +37,7 @@ public class UsuarioService {
     AuthService oAuthService;
 
     private final String DNI_LETTERS = "TRWAGMYFPDXBNJZSQVHLCKE";
-    private final String PC_DEFAULT_PASSWORD = "1234";
+    private final String PC_DEFAULT_PASSWORD = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4";
     private final String[] NOMBRES = { "Jose", "Mark", "Elen", "Toni", "Hector", "Jose", "Laura", "Vika", "Sergio",
             "Javi", "Marcos", "Pere", "Daniel", "Jose", "Javi", "Sergio", "Aaron", "Rafa", "Lionel", "Borja" };
 
@@ -57,7 +57,7 @@ public class UsuarioService {
     }
 
     public Page<UsuarioEntity> getPage(Pageable oPageable, String strFilter, Long lTipoUsuario) {
-        oAuthService.OnlyAdmins();
+        //oAuthService.OnlyAdmins();
         ValidationHelper.validateRPP(oPageable.getPageSize());
         Page<UsuarioEntity> oPage = null;
         if (lTipoUsuario == null) {
